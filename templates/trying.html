@@ -1,0 +1,132 @@
+    <!-- Карточки -->
+    <div class="row">
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+
+              <img src="/static/images/oval.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+
+            <p class="card-text my-4">{{description1}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+
+            <img src="/static/images/oval.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+            <p class="card-text my-4">{{description2}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="/static/images/oval.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+            <p class="card-text my-4">{{description3}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="/static/images/bank.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+            <p class="card-text my-4">{{description4}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="/static/images/stepdown.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+            <p class="card-text my-4">{{description5}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="/static/images/exit.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+
+            <p class="card-text my-4">{{description6}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+    </div>
+    <!-- Список -->
+    <ul>
+          <li><h3>Ежеквартальный купон 11% годовых (USD) при росте, стагнации и даже при снижении котировок до -30%</h3></li>
+          <li>will still show a bullet</li>
+          <li>and have appropriate left margin</li>
+          <li>are unaffected by this style</li>
+          <li>will still show a bullet</li>
+          <li>and have appropriate left margin</li>
+    </ul>
+    <!-- Подзаголовок Параметры ноты -->
+    <div class = "container my-5">
+          <h1 class="display-6 text m-0">Параметры ноты</h1>
+      </div>
+    <!-- Таблица Параметры ноты -->
+    <table class="table table-striped">
+
+        <tbody>
+          <tr>
+            <th scope="row">Базовые активы</th>
+            <td>{{cond1}}</td>
+
+          </tr>
+          <tr>
+            <th scope="row">Купон</th>
+            {% if frequency_coupon1 == 0.25 %}
+            <td>{{coupon|round|int}}% годовых ({{currency}}), каждый квартал</td>
+            {% elif frequency_coupon1 == 0.5 %}
+            <td>{{coupon|round|int}}% годовых ({{currency}}), каждое полугодие</td>
+            {% elif frequency_coupon1 == 1 %}
+            <td>{{coupon|round|int}}% годовых ({{currency}}), каждый год</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">Купонный барьер</th>
+            <td>{{coupon_barrier|round|int}}%, запоминание пропущенного купона</td>
+
+          </tr>
+          <tr>
+            <th scope="row">Autocall-барьер</th>
+            {% if (100-(frequency_maturity1/frequency_autocall1-1)*stepdown) > coupon_barrier %}
+            <td>{{autocall_barrier|round|int}}% с понижением на {{stepdown}} п.п. до {{100-(frequency_maturity1/frequency_autocall1-1)*stepdown|round|int}}%</td>
+            {% else %}
+            <td>{{autocall_barrier|round|int}}% с понижением на {{stepdown}} п.п. до {{coupon_barrier|round|int}}%</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th scope="row">Защитный барьер</th>
+            <td>{{maturity_barrier1|round|int}}%</td>
+
+          </tr>
+          <tr>
+            <th scope="row">Срок до погашения</th>
+            {% if frequency_maturity1 == 1 %}
+            <td>Не более {{frequency_maturity1}} года</td>
+            {% else %}
+            <td>Не более {{frequency_maturity1}} лет</td>
+            {% endif %}
+          </tr>
+        </tbody>
+      </table>

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+
+  <!-- Page Content -->
+  <div class="container my-5">
+
+    <!-- Описание базовых активов -->
+    <div class="row">
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="/static/images/CRWD.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+            <h3 class="card-title my-5">{{short_name[0]}}</h3>
+            <p class="card-text lead">{{description[0]}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="#div1" class="btn btn-outline-secondary  btn-lg">Больше информации</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+              <img src="/static/images/FTNT.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+              <h3 class="card-title my-5">{{short_name[1]}}</h3>
+              <p class="card-text lead">{{description[1]}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="#div2" class="btn btn-outline-secondary btn-lg">Больше информации</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+              <img src="/static/images/CRWD.png" class="img-thumbnail rounded mx-auto d-block" alt="...">
+              <h3 class="card-title my-5">{{short_name[2]}}</h3>
+              <p class="card-text lead">{{description[2]}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="#div3" class="btn btn-outline-secondary  btn-lg">Больше информации</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-md-4 -->
+
+    </div>
+    <!-- Подзаголовок Показатели -->
+    <div class = "container my-5">
+          <h1 class="display-6 text m-0">Финансовые показатели по данным Bloomberg</h1>
+      </div>
+    <!-- Таблица Показатели -->
+    <table class="table table-striped">
+
+        <tbody>
+          <tr>
+            <th scope="row">Название</th>
+            {% for i in short_name %}
+            <td>{{ i }}</td>
+            {% endfor %}
+
+          </tr>
+          <tr>
+            <th scope="row">Капитализация</th>
+            {% for i in marcap %}
+            <td>{{ i }} млрд. долларов</td>
+            {% endfor %}
+
+          </tr>
+          <tr>
+            <th scope="row">Темпы роста выручки, 4K2020/4K2019</th>
+            {% for i in sales_growth %}
+            <td>{{ i|round(1) }}%</td>
+            {% endfor %}
+
+          </tr>
+          <tr>
+            <th scope="row">Рентабельность EBITDA</th>
+            {% for i in ebitda_margin %}
+            <td>{{ i|round(1) }}%</td>
+            {% endfor %}
+
+          </tr>
+          <tr>
+            <th scope="row">Темпы роста прибыли на акцию, 4K2020/4K2019</th>
+            {% for i in eps_growth %}
+            <td>{{ i|round(1) }}%</td>
+            {% endfor %}
+
+          </tr>
+          <tr>
+            <th scope="row">Чистый долг к EBITDA</th>
+            {% for i in net_debt_ebitda %}
+            <td>{{ i|round(1) }}</td>
+            {% endfor %}
+
+            </tr>
+          <tr>
+            <th scope="row">Консенсус-прогноз Bloomberg</th>
+            {% for i in target %}
+            <td>{{ i|round(1) }}%</td>
+            {% endfor %}
+
+          </tr>
+        </tbody>
+      </table>
+    <!-- Подробнее о компаниях -->
+
+    <div class = "container my-5">
+      <div id="div1">
+        <h1>{{short_name[0]}}</h1>
+        <div class = 'container my-5'>
+          <p class="lead">{{full_description[0]}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class = "container my-5">
+      <div id="div2">
+        <h1>{{short_name[1]}}</h1>
+        <div class = 'container my-5'>
+          <p class="lead">{{full_description[1]}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class = "container my-5">
+      <div id="div3">
+        <h1>{{short_name[2]}}</h1>
+        <div class = 'container my-5'>
+          <p class="lead">{{full_description[2]}}</p>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+  <!-- Page Content -->
+  <div class="container my-5">
+    <!-- Цитата -->
+    <div class="container">
+        <figure class="text-right">
+        <blockquote class="blockquote">
+        <p class="lead">{{cite}}</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            <cite title="Source Title">{{author}}</cite>
+        </figcaption>
+        </figure>
+      </div>
+    <!-- Подзаголовок Факты -->
+    <!-- Текст Факты -->
+    <div class="card text-white bg-secondary my-5 py-6 text-left">
+      <div class="card-body">
+        <h1 class="display-6 text m-3">Факты</h1>
+        <p class="lead text-white m-3">{{facts}}</p>
+      </div>
+    </div>
+    <!-- Подзаголовок Мы предлагаем -->
+    <div class = "container my-5">
+          <h1 class="display-6 text m-0">Мы предлагаем</h1>
+      </div>
+    <!-- Мы предлагаем -->
+    <div class = "container my-5">
+
+      <!-- Строка про купон -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+          <h3>{{coupon|round|int}}%</h3>
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          {% if frequency_coupon1 == 0.25 %}
+          <p class="lead">Ежеквартальный купон {{coupon|round|int}}% годовых ({{currency}}) при росте, стагнации и даже при снижении котировок до {{(coupon_barrier - 100)|round(0)}}%</p>
+          {% elif frequency_coupon1 == 0.5 %}
+          <p class="lead">Полугодовой купон {{coupon}}% годовых ({{currency}}) при росте, стагнации и даже при снижении котировок до {{(coupon_barrier - 100)|round(0)}}%</p>
+          {% elif frequency_coupon1 == 0.5 %}
+          <p class="lead">Ежегодный купон {{coupon}}% годовых ({{currency}}) при росте, стагнации и даже при снижении котировок до {{(coupon_barrier - 100)|round(0)}}%</p>
+          {% endif %}
+
+        </dd>
+      </dl>
+      <!-- Строка про срок до погашения -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+          {% if frequency_maturity1 == 1 %}
+          <h3>{{frequency_maturity1}} год</h3>
+          {% elif frequency_maturity1 == 5 %}
+          <h3>{{frequency_maturity1}} лет</h3>
+          {% else %}
+          <h3>{{frequency_maturity1}} года</h3>
+          {% endif %}
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          <p class="lead">Максимальный срок до погашения</p>
+
+        </dd>
+      </dl>
+      <!-- Строка про защитный барьер -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+          <h3>{{maturity_barrier1|round|int}}%</h3>
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          <p class="lead">Чрезвычайно глубокий барьер защиты номинала (до {{(maturity_barrier1-100)|round}}%) на случай неожиданной волатильности</p>
+
+        </dd>
+      </dl>
+      <!-- Строка про эмитента -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+
+          <h3>А+</h3>
+
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          <p class="lead">Эмитент ноты - глобальный банк с кредитным рейтингом инвестиционного уровня</p>
+
+        </dd>
+      </dl>
+      <!-- Строка про досрочное погашение -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+          <h3>{{stepdown}}%</h3>
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          {% if frequency_autocall1 == 0.25 %}
+          <p class="lead">Очень <strong>высокая вероятность автоматического досрочного погашения (autocall)</strong> по номиналу с выплатой очередного купона: <em>каждый квартал autocall-барьер снижается на {{stepdown}} п.п. вплоть до уровня {{(100-(frequency_maturity1/frequency_autocall1 - 1) * stepdown)|round|int}}%</em></p>
+          {% elif frequency_autocall1 == 0.5 %}
+          <p class="lead">Очень <strong>высокая вероятность автоматического досрочного погашения (autocall)</strong> по номиналу с выплатой очередного купона: <em>каждые полгода autocall-барьер снижается на {{stepdown}} п.п. вплоть до уровня {{(100-(frequency_maturity1/frequency_autocall1 - 1) * stepdown)|round|int}}%</em></p>
+          {% endif %}
+        </dd>
+      </dl>
+      <!-- Строка про ежедневную котировку -->
+      <dl class = "row">
+        <dt class = "col-sm-1">
+        </dt>
+        <dt class = "col-sm-2">
+
+          <h3>99.5/100</h3>
+
+        </dt>
+        <dt class = "col-sm-1">
+        </dt>
+        <dd class = "col-sm-7">
+
+          <p class="lead">Ежедневная котировка структурной ноты для выхода на вторичном рынке</p>
+
+        </dd>
+      </dl>
+
+    </div>
+    <!-- Цитата в картинке -->
+    <div class="py-4 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <h1 class = "display-6 mx-4 text-grey">{{title_purposes}}</h1>
+      </div>
+        <!-- Список -->
+      <div class="container my-3">
+        <ul class="lead">
+          {% for purpose in purposes.values() %}
+          <li>{{purpose}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+
+
+    </div>
+
+  </div>
+    <!-- Подзаголовок Расчет  -->
+    <div class = "container my-5">
+          <h1 class="display-6 text m-0">Пример расчета выручки инвестора</h1>
+    </div>
+    <div class = "container my-5">
+         <div class = "row">
+              <div class = "col-6">
+                <h3>Негативный сценарий</h3>
+              </div>
+              <div class = "col-6">
+                <h3>Позитивный сценарий</h3>
+              </div>
+        </div>
+    </div>
+    <!-- Подзаголовок История  -->
+    <div class = "container my-5">
+          <h1 class="display-6 text m-0">{{story.title}}</h1>
+      <p class = "lead my-3">{{story.text}}</p>
+    </div>
+  </div>
+  <!-- /.container -->
+
+{% endblock %}
